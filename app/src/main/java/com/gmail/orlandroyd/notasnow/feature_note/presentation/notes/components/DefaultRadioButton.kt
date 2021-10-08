@@ -1,5 +1,6 @@
 package com.gmail.orlandroyd.notasnow.feature_note.presentation.notes.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -12,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -19,7 +22,9 @@ fun DefaultRadioButton(
     text: String,
     selected: Boolean,
     onSelect: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = MaterialTheme.typography.body1,
+    fontStyle: FontStyle = FontStyle.Normal
 ) {
     Row(
         modifier = modifier,
@@ -37,6 +42,15 @@ fun DefaultRadioButton(
             }
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = text, style = MaterialTheme.typography.body1)
+        Text(
+            text = text,
+            style = textStyle,
+            fontStyle = fontStyle,
+            modifier = Modifier
+                .clickable(
+                    enabled = true,
+                    onClick = onSelect
+                )
+        )
     }
 }

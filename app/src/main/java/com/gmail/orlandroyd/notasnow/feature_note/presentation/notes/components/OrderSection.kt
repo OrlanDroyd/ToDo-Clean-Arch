@@ -1,8 +1,13 @@
 package com.gmail.orlandroyd.notasnow.feature_note.presentation.notes.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.gmail.orlandroyd.notasnow.feature_note.domain.util.NoteOrder
 import com.gmail.orlandroyd.notasnow.feature_note.domain.util.OrderType
@@ -46,7 +51,13 @@ fun OrderSection(
                 selected = noteOrder.orderType is OrderType.Ascending,
                 onSelect = {
                     onOrderChange(noteOrder.copy(OrderType.Ascending))
-                }
+                },
+                textStyle = MaterialTheme.typography.body2,
+                fontStyle = FontStyle.Italic
+            )
+            Icon(
+                imageVector = Icons.Default.ArrowUpward,
+                contentDescription = "Asc"
             )
             Spacer(modifier = Modifier.width(8.dp))
             DefaultRadioButton(
@@ -54,7 +65,13 @@ fun OrderSection(
                 selected = noteOrder.orderType is OrderType.Descending,
                 onSelect = {
                     onOrderChange(noteOrder.copy(OrderType.Descending))
-                }
+                },
+                textStyle = MaterialTheme.typography.body2,
+                fontStyle = FontStyle.Italic
+            )
+            Icon(
+                imageVector = Icons.Default.ArrowDownward,
+                contentDescription = "Des"
             )
         }
     }

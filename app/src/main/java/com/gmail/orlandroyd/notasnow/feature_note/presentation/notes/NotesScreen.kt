@@ -10,10 +10,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -22,6 +30,7 @@ import com.gmail.orlandroyd.notasnow.feature_note.presentation.notes.components.
 import com.gmail.orlandroyd.notasnow.feature_note.presentation.notes.components.OrderSection
 import com.gmail.orlandroyd.notasnow.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @ExperimentalAnimationApi
 @Composable
@@ -33,9 +42,30 @@ fun NotesScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
+    // Fab scroll auto hide
+    val fabHeight = 72.dp // FabSize+Padding
+    val fabHeightPx = with(LocalDensity.current) { fabHeight.roundToPx().toFloat() }
+    val fabOffsetHeightPx = remember { mutableStateOf(0f) }
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+
+                val delta = available.y
+                val newOffset = fabOffsetHeightPx.value + delta
+                fabOffsetHeightPx.value = newOffset.coerceIn(-fabHeightPx, 0f)
+
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
+        Modifier
+            .nestedScroll(nestedScrollConnection),
         floatingActionButton = {
             FloatingActionButton(
+                modifier = Modifier
+                    .offset { IntOffset(x = 0, y = -fabOffsetHeightPx.value.roundToInt()) },
                 onClick = {
                     navController.navigate(Screen.AddEditNoteScreen.route)
                 },
