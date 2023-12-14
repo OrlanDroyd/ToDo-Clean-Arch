@@ -1,6 +1,7 @@
 package com.gmail.orlandroyd.todo.feature_note.domain.use_case
 
 import com.gmail.orlandroyd.todo.feature_note.data.repository.FakeNoteRepository
+import com.gmail.orlandroyd.todo.feature_note.domain.model.InvalidNoteException
 import com.gmail.orlandroyd.todo.feature_note.domain.model.Note
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
@@ -18,35 +19,23 @@ class AddNoteTest {
         addNote = AddNote(fakeRepository)
     }
 
-    @Test
-    fun `insert note into DB - NO TITLE, throws exception`() = runBlocking {
+    @Test(expected = InvalidNoteException::class)
+    fun `GIVEN a note WHEN insert into db with no title THEN throws exception`() = runBlocking {
         val note = Note("", "Content", 1, 1, 1)
-        try {
-            assertThat(addNote(note)).isNull()
-        } catch (e: Exception){
-            println(e.message)
-        }
+        addNote(note)
     }
 
-    @Test
-    fun `insert note into DB - NO CONTENT, throws exception`() = runBlocking {
+    @Test(expected = InvalidNoteException::class)
+    fun `GIVEN a note WHEN insert into db with no content THEN throws exception`() = runBlocking {
         val note = Note("Title", "", 1, 1, 1)
-        try {
-            assertThat(addNote(note)).isNull()
-        } catch (e: Exception){
-            println(e.message)
-        }
+        addNote(note)
     }
 
     @Test
-    fun `insert note into DB - CORRECT`() = runBlocking {
+    fun `GIVEN a note WHEN insert into db THEN inserted`() = runBlocking {
         val note = Note("Title", "Content", 1, 1, 1)
-        try {
-            addNote(note)
-        } catch (e: Exception){
-            println(e.message)
-        }
-        val insertedNote: Note? = fakeRepository.getNoteById(1)
+        addNote(note)
+        val insertedNote = fakeRepository.getNoteById(1)
         assertThat(insertedNote).isEqualTo(note)
     }
 }

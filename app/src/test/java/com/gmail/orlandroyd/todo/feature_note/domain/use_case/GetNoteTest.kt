@@ -8,27 +8,37 @@ import org.junit.Before
 import org.junit.Test
 
 class GetNoteTest {
-    private lateinit var deleteNote: DeleteNote
+    private lateinit var getNoteTest: GetNote
     private lateinit var fakeRepository: FakeNoteRepository
 
     @Before
     fun setUp() {
         fakeRepository = FakeNoteRepository()
-        deleteNote = DeleteNote(fakeRepository)
+        getNoteTest = GetNote(fakeRepository)
     }
 
     @Test
-    fun `search existing note, correct`() = runBlocking {
+    fun `GIVEN a note WHEN search THEN found is correct`() = runBlocking {
+
         val note = Note("Title", "Content", 1, 1, 1)
         fakeRepository.insertNote(note)
-        assertThat(fakeRepository.getNoteById(1)).isEqualTo(note)
+
+        val findNote = getNoteTest(1)
+
+        assertThat(findNote?.id).isEqualTo(note.id)
+
     }
 
     @Test
-    fun `search non-existing note, is null`() = runBlocking {
+    fun `GIVEN a note WHEN search THEN not found is correct`() = runBlocking {
+
         val note = Note("Title", "Content", 1, 1, 1)
         fakeRepository.insertNote(note)
-        assertThat(fakeRepository.getNoteById(2)).isNull()
+
+        val findNote = getNoteTest(0)
+
+        assertThat(findNote).isNull()
+
     }
 
 }

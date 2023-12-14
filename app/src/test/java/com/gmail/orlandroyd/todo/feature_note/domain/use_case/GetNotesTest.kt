@@ -38,7 +38,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by title ascending, correct order`() = runBlocking {
+    fun `WHEN order notes by title ascending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Title(OrderType.Ascending)).first()
 
         for (i in 0..notes.size - 2) {
@@ -48,7 +51,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by title descending, correct order`() = runBlocking {
+    fun `WHEN order notes by title descending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Title(OrderType.Descending)).first()
 
         for (i in 0..notes.size - 2) {
@@ -58,7 +64,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by date ascending, correct order`() = runBlocking {
+    fun `WHEN order notes by date ascending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Date(OrderType.Ascending)).first()
 
         for (i in 0..notes.size - 2) {
@@ -68,7 +77,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by date descending, correct order`() = runBlocking {
+    fun `WHEN order notes by date descending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Date(OrderType.Descending)).first()
 
         for (i in 0..notes.size - 2) {
@@ -78,7 +90,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by color ascending, correct order`() = runBlocking {
+    fun `WHEN order notes by color ascending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Color(OrderType.Ascending)).first()
 
         for (i in 0..notes.size - 2) {
@@ -88,7 +103,10 @@ class GetNotesTest {
     }
 
     @Test
-    fun `Order notes by color descending, correct order`() = runBlocking {
+    fun `WHEN order notes by color descending THEN correct order`() = runBlocking {
+
+
+
         val notes = getNotes(NoteOrder.Color(OrderType.Descending)).first()
 
         for (i in 0..notes.size - 2) {

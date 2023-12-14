@@ -1,6 +1,6 @@
 package com.gmail.orlandroyd.todo.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.gmail.orlandroyd.todo.feature_note.data.data_source.NoteDatabase
 import com.gmail.orlandroyd.todo.feature_note.data.repository.NoteRepositoryImpl
@@ -9,6 +9,7 @@ import com.gmail.orlandroyd.todo.feature_note.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -18,9 +19,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(app: Application): NoteDatabase {
+    fun provideNoteDatabase(@ApplicationContext context: Context): NoteDatabase {
         return Room.databaseBuilder(
-            app,
+            context,
             NoteDatabase::class.java,
             NoteDatabase.DATABASE_NAME
         ).build()

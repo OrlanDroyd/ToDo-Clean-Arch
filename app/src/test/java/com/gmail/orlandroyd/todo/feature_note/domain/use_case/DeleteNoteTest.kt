@@ -20,18 +20,27 @@ class DeleteNoteTest {
     }
 
     @Test
-    fun `delete existing note, correct`() = runBlocking {
+    fun `GIVEN a note WHEN delete existing note THEN correct`() = runBlocking {
+
         val note = Note("Title", "Content", 1, 1, 1)
         fakeRepository.insertNote(note)
-        fakeRepository.deleteNote(note)
+
+        deleteNote(note)
+
         assertThat(fakeRepository.getNoteById(1)).isNotEqualTo(note)
+
     }
 
     @Test
-    fun `delete non-existing note, correct`() = runBlocking {
+    fun `GIVEN a note WHEN delete non existing note THEN correct`() = runBlocking {
+
         val note = Note("Title", "Content", 1, 1, 1)
         fakeRepository.deleteNote(note)
+
+        deleteNote(note)
+
         assertThat(fakeRepository.getNoteById(1)).isNotEqualTo(note)
+
     }
 
 }
