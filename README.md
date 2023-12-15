@@ -31,4 +31,4 @@ This project is mantained by:
 3. Commit your changes (git commit -m 'Add some feature')
 4. Run the linter (ruby lint.rb').
 5. Push your branch (git push origin my-new-feature)
-6. Create a new Pull Request
+6. Create a new Pull Request 
