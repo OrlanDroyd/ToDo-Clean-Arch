@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -21,6 +22,7 @@ jobs:
 
   unit-test:
     needs: [lint]
+    name: Unit Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -47,6 +49,7 @@ jobs:
 
   instrumentation-test:
     needs: [unit-test]
+    name: Instrumentation Test
     runs-on: macos-latest
     steps:
       - name: Checkout the code
@@ -76,6 +79,7 @@ jobs:
 
   static-code-analysis:
     needs: [instrumentation-test]
+    name: Static Code Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
