@@ -28,6 +28,7 @@ jobs:
 
       - name: Upload lint html report
         uses: actions/upload-artifact@v2
+        if: ${{ always() }}
         with:
           name: lint.html
           path: app/build/reports/lint-results-debug.html
