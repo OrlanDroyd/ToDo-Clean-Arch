@@ -98,7 +98,7 @@ class NotesEndToEndTest {
         composeRule.onNodeWithContentDescription("Guardar nota").performClick()
 
         // Make suer that the change was apply to the list
-        composeRule.onNodeWithText("test-title2").assertIsDisplayed()
+        composeRule.onNodeWithText("2test-title").assertIsDisplayed()
     }
 
     @Test
@@ -108,19 +108,23 @@ class NotesEndToEndTest {
             composeRule.onNodeWithContentDescription("Añadir nota").performClick()
 
             // Enter texts in title and content text fields
-            composeRule.onNodeWithTag(TestTags.TITLE_TEXT_FIELD).performTextInput("title - $i")
-            composeRule.onNodeWithTag(TestTags.CONTENT_TEXT_FIELD).performTextInput("content - $i")
+            composeRule.onNodeWithTag(TestTags.TITLE_TEXT_FIELD).performTextInput("$i")
+            composeRule.onNodeWithTag(TestTags.CONTENT_TEXT_FIELD).performTextInput("$i")
             // Save the note
             composeRule.onNodeWithContentDescription("Guardar nota").performClick()
         }
 
-        composeRule.onNodeWithText("title - 1")
-        composeRule.onNodeWithText("title - 2")
-        composeRule.onNodeWithText("title - 3")
+        composeRule.onNodeWithText("1").assertIsDisplayed()
+        composeRule.onNodeWithText("2").assertIsDisplayed()
+        composeRule.onNodeWithText("3").assertIsDisplayed()
 
         composeRule.onNodeWithContentDescription("Ordenar").performClick()
         composeRule.onNodeWithContentDescription("Título").performClick()
         composeRule.onNodeWithContentDescription("Descendente").performClick()
+
+        composeRule.mainClock.autoAdvance = false
+        composeRule.mainClock.advanceTimeBy(5000L)
+        composeRule.mainClock.autoAdvance = true
 
         composeRule.onAllNodesWithTag(TestTags.NOTE_ITEM)[0]
             .assertTextContains("3")
@@ -128,6 +132,20 @@ class NotesEndToEndTest {
             .assertTextContains("2")
         composeRule.onAllNodesWithTag(TestTags.NOTE_ITEM)[2]
             .assertTextContains("1")
+
+    }
+
+    @Test
+    fun saveNote_isSave() {
+        // Click on FAB to get to add note screen
+        composeRule.onNodeWithContentDescription("Añadir nota").performClick()
+        // Enter texts in title and content text fields
+        composeRule.onNodeWithTag(TestTags.TITLE_TEXT_FIELD).performTextInput("title")
+        composeRule.onNodeWithTag(TestTags.CONTENT_TEXT_FIELD).performTextInput("content")
+        // Save the note
+        composeRule.onNodeWithContentDescription("Guardar nota").performClick()
+
+        composeRule.onNodeWithTag(TestTags.NOTE_ITEM).assertTextContains("title")
 
     }
 }

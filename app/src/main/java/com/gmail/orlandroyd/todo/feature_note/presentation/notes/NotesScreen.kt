@@ -1,5 +1,6 @@
 package com.gmail.orlandroyd.todo.feature_note.presentation.notes
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -32,6 +33,7 @@ import com.gmail.orlandroyd.todo.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalAnimationApi
 @Composable
 fun NotesScreen(

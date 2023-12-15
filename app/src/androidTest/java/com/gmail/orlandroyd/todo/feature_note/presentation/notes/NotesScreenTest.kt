@@ -3,9 +3,12 @@ package com.gmail.orlandroyd.todo.feature_note.presentation.notes
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsSelectable
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -56,7 +59,23 @@ class NotesScreenTest {
     @Test
     fun clickToggleOrderSection_isVisible() {
         composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()
-        composeRule.onNodeWithContentDescription("Ordenar").performClick() // onClick
+        composeRule.onNodeWithContentDescription("Ordenar").performClick()
+
         composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertIsDisplayed()
+    }
+
+    @Test
+    fun clickToggleOrderSection_saveSelection() {
+        composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()
+        composeRule.onNodeWithContentDescription("Ordenar").performClick()
+        composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Título").performClick()
+        composeRule.onNodeWithContentDescription("Ascendente").performClick()
+        composeRule.onNodeWithContentDescription("Ordenar").performClick()
+        composeRule.onNodeWithContentDescription("Ordenar").performClick()
+
+        composeRule.onNodeWithContentDescription("Título").assertIsSelected()
+        composeRule.onNodeWithContentDescription("Ascendente").assertIsSelected()
+
     }
 }
