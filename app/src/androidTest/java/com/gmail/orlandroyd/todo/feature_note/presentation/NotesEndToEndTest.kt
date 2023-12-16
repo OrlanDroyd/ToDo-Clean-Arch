@@ -13,6 +13,7 @@ import com.gmail.orlandroyd.todo.core.util.TestTags
 import com.gmail.orlandroyd.todo.di.AppModule
 import com.gmail.orlandroyd.todo.feature_note.presentation.add_edit_note.AddEditNoteScreen
 import com.gmail.orlandroyd.todo.feature_note.presentation.notes.NotesScreen
+import com.gmail.orlandroyd.todo.feature_note.presentation.notes.NotesState
 import com.gmail.orlandroyd.todo.feature_note.presentation.util.Screen
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -44,7 +45,7 @@ class NotesEndToEndTest {
                 startDestination = Screen.NotesScreen.route
             ) {
                 composable(route = Screen.NotesScreen.route) {
-                    NotesScreen(navController = navController)
+                    NotesScreen(navController = navController, state = NotesState())
                 }
                 composable(
                     route = Screen.AddEditNoteScreen.route +

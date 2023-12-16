@@ -38,9 +38,9 @@ import kotlin.math.roundToInt
 @Composable
 fun NotesScreen(
     navController: NavController,
-    viewModel: NotesViewModel = hiltViewModel()
+    state: NotesState,
+    viewModel: NotesViewModel = hiltViewModel(),
 ) {
-    val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 

@@ -49,7 +49,7 @@ class NotesScreenTest {
                     startDestination = Screen.NotesScreen.route
                 ) {
                     composable(route = Screen.NotesScreen.route) {
-                        NotesScreen(navController = navController)
+                        NotesScreen(navController = navController, state = NotesState())
                     }
                 }
             }
